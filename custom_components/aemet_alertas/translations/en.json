@@ -1,0 +1,34 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "AEMET Alerts",
+        "description": "Select the province you want to monitor. Areas are obtained directly from AEMET.",
+        "data": {
+          "province": "Province"
+        }
+      },
+      "area": {
+        "title": "Warning area",
+        "description": "Select the official AEMET warning area.",
+        "data": {
+          "area_name": "Area"
+        }
+      },
+      "options": {
+        "title": "Alert filters",
+        "description": "Choose the levels and phenomena to monitor.",
+        "data": {
+          "severities": "Levels",
+          "events": "Phenomena"
+        }
+      }
+    },
+    "abort": {
+      "cannot_connect": {
+        "title": "Cannot connect to AEMET",
+        "description": "Home Assistant could not retrieve the AEMET area catalogue."
+      }
+    }
+  }
+}

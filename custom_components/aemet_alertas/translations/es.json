@@ -1,0 +1,34 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "AEMET Alertas",
+        "description": "Selecciona la provincia que quieres vigilar. Las zonas se obtienen directamente de AEMET.",
+        "data": {
+          "province": "Provincia"
+        }
+      },
+      "area": {
+        "title": "Zona de aviso",
+        "description": "Selecciona la zona oficial de avisos de AEMET.",
+        "data": {
+          "area_name": "Zona"
+        }
+      },
+      "options": {
+        "title": "Filtros de avisos",
+        "description": "Elige los niveles y fenómenos que quieres monitorizar.",
+        "data": {
+          "severities": "Niveles",
+          "events": "Fenómenos"
+        }
+      }
+    },
+    "abort": {
+      "cannot_connect": {
+        "title": "No se puede conectar con AEMET",
+        "description": "Home Assistant no ha podido obtener el catálogo de zonas de AEMET."
+      }
+    }
+  }
+}
