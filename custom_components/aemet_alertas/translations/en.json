@@ -14,8 +14,15 @@
         "data": {
           "area_name": "Area"
         }
-      },
-      "options": {
+      }
+    },
+    "abort": {
+      "cannot_connect": "Cannot connect to AEMET. Home Assistant could not retrieve the AEMET area catalogue."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
         "title": "Alert filters",
         "description": "Choose the levels and phenomena to monitor.",
         "data": {
@@ -23,9 +30,6 @@
           "events": "Phenomena"
         }
       }
-    },
-    "abort": {
-      "cannot_connect": "Cannot connect to AEMET. Home Assistant could not retrieve the AEMET area catalogue."
     }
   }
 }
