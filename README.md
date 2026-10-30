@@ -28,6 +28,16 @@ La integración descubre las provincias y zonas oficiales disponibles, permite s
 
 > **Importante:** AEMET Alertas es un proyecto independiente y **no está afiliado, patrocinado, respaldado ni mantenido por AEMET**.
 
+## ☕️ ¿Te resulta útil AEMET Alertas?
+
+Si el proyecto te ayuda a estar al día de los avisos meteorológicos en Home Assistant, puedes **apoyar su desarrollo** con un café. Es totalmente opcional y ayuda a mantener el proyecto, preparar nuevas funciones y mejorar la documentación.
+
+<p align="center">
+  <a href="https://www.buymeacoffee.com/jacumal">
+    <img src="https://img.shields.io/badge/☕️%20Buy%20Me%20a%20Coffee-Apoyar%20el%20proyecto-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=000000" alt="Buy Me a Coffee">
+  </a>
+</p>
+
 ## 🚀 Características principales
 
 | | Funcionalidad |
