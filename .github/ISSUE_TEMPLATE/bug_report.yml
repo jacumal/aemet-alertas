@@ -1,0 +1,70 @@
+name: 🐛 Bug report
+description: Report a problem with AEMET Alertas
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por ayudar a mejorar AEMET Alertas. 🌦️
+
+  - type: input
+    id: ha_version
+    attributes:
+      label: Home Assistant version
+      placeholder: "2026.10.x"
+    validations:
+      required: true
+
+  - type: input
+    id: integration_version
+    attributes:
+      label: AEMET Alertas version
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: zone
+    attributes:
+      label: Configured alert zone
+      placeholder: "Litoral norte de Valencia"
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the problem and what you expected to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: List the steps needed to reproduce the problem.
+      placeholder: |
+        1. Configure...
+        2. Open...
+        3. Observe...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Paste relevant Home Assistant logs. Remove tokens, credentials and personal information.
+      render: text
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional information
+    validations:
+      required: false
