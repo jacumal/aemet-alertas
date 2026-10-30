@@ -403,7 +403,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     vol.Required(CONF_AREA_NAME): vol.In(
                         list(self._areas)
                     )
-                }
+                },
             ),
         )
 
@@ -415,13 +415,22 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
         self,
         user_input: dict[str, Any] | None = None,
     ) -> config_entries.ConfigFlowResult:
+        """Start the options flow."""
+        return await self.async_step_options(user_input)
+
+    async def async_step_options(
+        self,
+        user_input: dict[str, Any] | None = None,
+    ) -> config_entries.ConfigFlowResult:
         """Configure alert severity and phenomenon filters."""
+
         current_severities = list(
             self.config_entry.options.get(
                 CONF_SEVERITIES,
                 ["green", "yellow", "orange", "red"],
             )
         )
+
         current_events = list(
             self.config_entry.options.get(
                 CONF_EVENTS,
@@ -441,6 +450,7 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
             {"value": "orange", "label": "Naranja"},
             {"value": "red", "label": "Rojo"},
         ]
+
         event_options = [
             {"value": "all", "label": "Todos"},
             *(
