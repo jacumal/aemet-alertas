@@ -14,20 +14,21 @@
         "data": {
           "area_name": "Zona"
         }
-      },
-      "options": {
+      }
+    },
+    "abort": {
+      "cannot_connect": "No se puede conectar con AEMET. Home Assistant no ha podido obtener el catálogo de zonas de AEMET."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
         "title": "Filtros de avisos",
         "description": "Elige los niveles y fenómenos que quieres monitorizar.",
         "data": {
           "severities": "Niveles",
           "events": "Fenómenos"
         }
-      }
-    },
-    "abort": {
-      "cannot_connect": {
-        "title": "No se puede conectar con AEMET",
-        "description": "Home Assistant no ha podido obtener el catálogo de zonas de AEMET."
       }
     }
   }
