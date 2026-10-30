@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/aemet_alertas_logo.svg" alt="AEMET Alertas" width="190">
+  <img src="assets/aemet_alertas_logo.png" alt="AEMET Alertas" width="190">
 
   # AEMET Alertas
 
