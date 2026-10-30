@@ -62,6 +62,89 @@ La entidad de eventos puede generar:
 
 ---
 
+## 🖼️ Vista general
+
+La integración se integra de forma nativa en la interfaz de Home Assistant, utilizando **Config Flow**, **Device Registry**, **Entity Registry** y una entidad de eventos.
+
+<p align="center">
+  <img src="assets/screenshots/01-integracion.png" alt="AEMET Alertas en Home Assistant" width="900">
+</p>
+
+<p align="center">
+  <em>Integración instalada y disponible desde Dispositivos y servicios.</em>
+</p>
+
+---
+
+## ⚙️ Configuración paso a paso
+
+### 1. Selección de provincia
+
+<p align="center">
+  <img src="assets/screenshots/02-provincia.png" alt="Selección de provincia en AEMET Alertas" width="900">
+</p>
+
+La provincia se selecciona desde el asistente de configuración y las zonas disponibles se obtienen directamente de AEMET.
+
+### 2. Selección de zona oficial
+
+<p align="center">
+  <img src="assets/screenshots/03-zona.png" alt="Selección de zona oficial de AEMET" width="900">
+</p>
+
+La integración utiliza las **zonas oficiales de avisos de AEMET**, evitando depender de nombres o divisiones geográficas mantenidas manualmente.
+
+### 3. Dispositivo y asignación a un área
+
+<p align="center">
+  <img src="assets/screenshots/04-asignacion.png" alt="Asignación del dispositivo AEMET Alertas a un área" width="900">
+</p>
+
+Cada zona configurada se representa como un dispositivo de Home Assistant y puede asignarse a un área de la vivienda.
+
+---
+
+## 📊 Entidades y dispositivo
+
+Por cada zona configurada, AEMET Alertas crea un dispositivo con las entidades asociadas.
+
+<p align="center">
+  <img src="assets/screenshots/05-dispositivo.png" alt="Dispositivo AEMET Alertas y sus entidades" width="900">
+</p>
+
+### Sensores
+
+- **Total avisos activos**
+- **Nº alertas verdes**
+- **Nº alertas amarillas**
+- **Nº alertas naranjas**
+- **Nº alertas rojas**
+- **Fenómenos verdes**
+- **Fenómenos amarillos**
+- **Fenómenos naranjas**
+- **Fenómenos rojos**
+
+### Sensores binarios
+
+Un sensor por nivel:
+
+- **Alerta verde**
+- **Alerta amarilla**
+- **Alerta naranja**
+- **Alerta roja**
+
+Esto permite crear automatizaciones muy sencillas, por ejemplo reaccionar inmediatamente cuando aparece una alerta roja.
+
+### Eventos
+
+<p align="center">
+  <img src="assets/screenshots/06-entidades.png" alt="Entidades y eventos de AEMET Alertas" width="900">
+</p>
+
+La entidad **Eventos de alertas** permite reaccionar a cambios en los avisos sin tener que consultar continuamente los sensores.
+
+---
+
 ## 📦 Instalación
 
 ### HACS
@@ -118,39 +201,6 @@ Fenómenos a monitorizar
 ```
 
 La configuración puede modificarse posteriormente desde las opciones de la integración.
-
----
-
-## 📊 Entidades
-
-Por cada zona configurada, AEMET Alertas crea un dispositivo con las entidades asociadas.
-
-### Sensores
-
-- **Total avisos activos**
-- **Nº alertas verdes**
-- **Nº alertas amarillas**
-- **Nº alertas naranjas**
-- **Nº alertas rojas**
-- **Fenómenos verdes**
-- **Fenómenos amarillos**
-- **Fenómenos naranjas**
-- **Fenómenos rojos**
-
-### Sensores binarios
-
-Un sensor por nivel:
-
-- **Alerta verde**
-- **Alerta amarilla**
-- **Alerta naranja**
-- **Alerta roja**
-
-Esto permite crear automatizaciones muy sencillas, por ejemplo reaccionar inmediatamente cuando aparece una alerta roja.
-
-### Eventos
-
-La entidad **Eventos de alertas** permite reaccionar a cambios en los avisos sin tener que consultar continuamente los sensores.
 
 ---
 
@@ -224,20 +274,6 @@ La integración procesa, entre otros elementos:
 La integración **no depende de MeteoAlarm ni de Feedreader**.
 
 Para las condiciones de reutilización de los datos, consulta el [aviso legal de AEMET](https://www.aemet.es/es/nota_legal).
-
----
-
-## 🖼️ Capturas
-
-La documentación visual de la integración se irá ampliando con capturas de:
-
-- Configuración de la integración.
-- Selección de provincia y zona.
-- Filtros de niveles y fenómenos.
-- Página del dispositivo y sus entidades.
-- Ejemplos de automatizaciones.
-
-> 📸 Las capturas de la versión 1.0.0 se añadirán al repositorio antes de la publicación definitiva para mantener la documentación sincronizada con la interfaz actual.
 
 ---
 
