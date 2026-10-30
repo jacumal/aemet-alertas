@@ -1,0 +1,12 @@
+alias: AEMET - Aviso de alerta roja
+description: Envía una notificación cuando se activa una alerta roja.
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.aemet_alertas_litoral_norte_de_valencia_alerta_roja
+    to: "on"
+actions:
+  - action: notify.mobile_app_iphone
+    data:
+      title: "🚨 Alerta roja AEMET"
+      message: "Se ha activado una alerta roja en la zona configurada."
+mode: single
