@@ -1,11 +1,12 @@
 <div align="center">
-  <img src="assets/aemet_alertas_logo.png" alt="AEMET Alertas" width="180">
+  <img src="assets/aemet_alertas_logo.svg" alt="AEMET Alertas" width="190">
 
   # AEMET Alertas
 
-  **Avisos meteorológicos oficiales de AEMET, directamente en Home Assistant.**
+  **Avisos meteorológicos de AEMET, directamente en Home Assistant.**
 
-  Integración personalizada, independiente de MeteoAlarm y Feedreader, con configuración visual, filtros por nivel y fenómeno, sensores detallados y eventos para automatizaciones.
+  Integración personalizada para consultar avisos meteorológicos oficiales de AEMET,
+  configurarlos desde la interfaz de Home Assistant y utilizarlos en sensores, dashboards y automatizaciones.
 
   <br>
 
@@ -19,31 +20,29 @@
 
 ---
 
-## ✨ Qué es
+## ✨ ¿Qué es AEMET Alertas?
 
-**AEMET Alertas** lleva los avisos meteorológicos de la **Agencia Estatal de Meteorología (AEMET)** directamente a Home Assistant utilizando sus canales oficiales de datos.
+**AEMET Alertas** lleva los avisos meteorológicos publicados por la **Agencia Estatal de Meteorología (AEMET)** directamente a Home Assistant utilizando sus canales oficiales de datos.
 
-La integración descubre las provincias y zonas oficiales disponibles, permite seleccionar qué niveles y fenómenos monitorizar y expone la información como sensores, sensores binarios y una entidad `Event` preparada para automatizaciones.
+La integración descubre las provincias y zonas oficiales disponibles, permite seleccionar qué niveles y fenómenos monitorizar y expone la información mediante dispositivos, sensores, sensores binarios y una entidad `Event` preparada para automatizaciones.
 
 > **Importante:** AEMET Alertas es un proyecto independiente y **no está afiliado, patrocinado, respaldado ni mantenido por AEMET**.
 
----
-
-## 🚀 Características
+## 🚀 Características principales
 
 | | Funcionalidad |
 |---|---|
-| 🌦️ | Datos meteorológicos directamente desde AEMET |
-| 🗺️ | Catálogo de provincias y zonas obtenido de AEMET |
-| ⚙️ | Configuración completa desde la interfaz de Home Assistant |
+| 🌦️ | Datos de avisos directamente desde AEMET |
+| 🗺️ | Provincias y zonas oficiales obtenidas dinámicamente de AEMET |
+| ⚙️ | Configuración completa mediante Config Flow |
 | 🎚️ | Filtros por nivel: verde, amarillo, naranja y rojo |
 | 🌧️ | Filtros por fenómeno meteorológico |
-| 📊 | Número de avisos activos por nivel |
+| 📊 | Contadores de avisos activos por nivel |
 | 🔔 | Sensores binarios para cada nivel de alerta |
 | ☁️ | Fenómenos activos agrupados por nivel |
-| ⚡ | Entidad `Event` para nuevos, actualizados y finalizados |
-| 🏠 | Agrupación de todas las entidades por zona/dispositivo |
-| 🎨 | Iconos y branding propios, independientes de AEMET |
+| ⚡ | Entidad `Event` para avisos nuevos, actualizados y finalizados |
+| 🏠 | Dispositivo y entidades integrados con Home Assistant |
+| 🎨 | Identidad visual propia e independiente de AEMET |
 
 ### Niveles soportados
 
@@ -62,17 +61,23 @@ La entidad de eventos puede generar:
 
 ---
 
-## 🖼️ Vista general
+## 🖼️ Así se ve en Home Assistant
 
-La integración se integra de forma nativa en la interfaz de Home Assistant, utilizando **Config Flow**, **Device Registry**, **Entity Registry** y una entidad de eventos.
+La integración utiliza los mecanismos nativos de Home Assistant, incluyendo **Config Flow**, **Device Registry**, **Entity Registry** y una entidad de eventos.
 
 <p align="center">
   <img src="assets/screenshots/01-integracion.png" alt="AEMET Alertas en Home Assistant" width="900">
 </p>
 
+<p align="center"><em>Integración instalada y disponible desde Dispositivos y servicios.</em></p>
+
+### Dispositivo y entidades
+
 <p align="center">
-  <em>Integración instalada y disponible desde Dispositivos y servicios.</em>
+  <img src="assets/screenshots/05-dispositivo.png" alt="Dispositivo AEMET Alertas y sus entidades" width="900">
 </p>
+
+<p align="center"><em>Cada zona configurada se representa como un dispositivo de Home Assistant.</em></p>
 
 ---
 
@@ -84,7 +89,7 @@ La integración se integra de forma nativa en la interfaz de Home Assistant, uti
   <img src="assets/screenshots/02-provincia.png" alt="Selección de provincia en AEMET Alertas" width="900">
 </p>
 
-La provincia se selecciona desde el asistente de configuración y las zonas disponibles se obtienen directamente de AEMET.
+La provincia se selecciona desde el asistente de configuración. Las zonas disponibles se obtienen directamente de AEMET.
 
 ### 2. Selección de zona oficial
 
@@ -100,17 +105,13 @@ La integración utiliza las **zonas oficiales de avisos de AEMET**, evitando dep
   <img src="assets/screenshots/04-asignacion.png" alt="Asignación del dispositivo AEMET Alertas a un área" width="900">
 </p>
 
-Cada zona configurada se representa como un dispositivo de Home Assistant y puede asignarse a un área de la vivienda.
+Cada zona configurada se representa como un dispositivo y puede asignarse a un área de la vivienda, igual que cualquier otra integración de Home Assistant.
 
 ---
 
-## 📊 Entidades y dispositivo
+## 📊 Entidades disponibles
 
-Por cada zona configurada, AEMET Alertas crea un dispositivo con las entidades asociadas.
-
-<p align="center">
-  <img src="assets/screenshots/05-dispositivo.png" alt="Dispositivo AEMET Alertas y sus entidades" width="900">
-</p>
+Por cada zona configurada, AEMET Alertas crea un dispositivo con sus entidades asociadas.
 
 ### Sensores
 
@@ -133,7 +134,7 @@ Un sensor por nivel:
 - **Alerta naranja**
 - **Alerta roja**
 
-Esto permite crear automatizaciones muy sencillas, por ejemplo reaccionar inmediatamente cuando aparece una alerta roja.
+Esto permite crear automatizaciones sencillas, por ejemplo reaccionar inmediatamente cuando aparece una alerta roja.
 
 ### Eventos
 
@@ -162,7 +163,7 @@ AEMET Alertas puede instalarse mediante **HACS como repositorio personalizado** 
 6. Instala **AEMET Alertas**.
 7. Reinicia Home Assistant.
 
-> 💡 **Consejo:** después de instalar o actualizar una integración personalizada, reinicia Home Assistant para que se cargue la nueva versión.
+> 💡 **Consejo:** después de instalar o actualizar una integración personalizada, reinicia Home Assistant para cargar la nueva versión.
 
 ### Instalación manual
 
@@ -182,7 +183,7 @@ Después reinicia Home Assistant.
 
 ---
 
-## ⚙️ Configuración
+## 🧭 Configuración
 
 Después de reiniciar Home Assistant:
 
@@ -204,7 +205,9 @@ La configuración puede modificarse posteriormente desde las opciones de la inte
 
 ---
 
-## 🤖 Ejemplos de automatización
+## 🤖 Automatizaciones
+
+AEMET Alertas está pensado para integrarse directamente con las automatizaciones de Home Assistant.
 
 ### 🔴 Avisar al móvil cuando aparece una alerta roja
 
@@ -243,11 +246,9 @@ mode: single
 
 ---
 
-## 🧩 Ejemplo de uso con eventos
+## ⚡ Eventos para automatizaciones avanzadas
 
-La entidad `Event` permite disparar automatizaciones cuando AEMET detecta cambios en los avisos.
-
-Conceptualmente, los eventos disponibles son:
+La entidad `Event` permite reaccionar cuando AEMET detecta cambios en los avisos.
 
 ```text
 new_alert
@@ -255,7 +256,7 @@ updated_alert
 ended_alert
 ```
 
-Esto resulta especialmente útil para construir notificaciones inteligentes, registrar el histórico de avisos o activar escenas dependiendo del tipo de cambio detectado.
+Esto permite construir notificaciones inteligentes, registrar el histórico de avisos o activar escenas dependiendo del tipo de cambio detectado.
 
 ---
 
@@ -289,9 +290,9 @@ Antes de publicar una versión se comprueba que la integración mantiene una est
 
 **Versión actual: 1.0.0**
 
-Primera versión pública preparada para distribución como integración personalizada de Home Assistant.
+Primera versión pública de la integración personalizada.
 
-El proyecto se encuentra en evolución y se aceptan sugerencias, mejoras y reportes de errores mediante GitHub Issues.
+El proyecto está en evolución y se aceptan sugerencias, mejoras y reportes de errores mediante GitHub Issues.
 
 ---
 
