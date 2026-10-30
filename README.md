@@ -273,6 +273,20 @@ Para las condiciones de reutilización de los datos, consulta el [aviso legal de
 
 ---
 
+## ☕️ Apoya el proyecto
+
+Si **AEMET Alertas** te resulta útil y quieres apoyar su mantenimiento y desarrollo, puedes invitarme a un café a través de **Buy Me a Coffee**:
+
+<p align="center">
+  <a href="https://www.buymeacoffee.com/jacumal">
+    <img src="https://img.shields.io/badge/☕️%20Buy%20Me%20a%20Coffee-Apoyar%20el%20proyecto-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=000000" alt="Buy Me a Coffee">
+  </a>
+</p>
+
+El apoyo es totalmente opcional y ayuda a dedicar tiempo a nuevas funciones, mantenimiento, documentación y soporte de la integración.
+
+---
+
 ## 🛠️ Desarrollo y calidad
 
 El repositorio incorpora validación automática mediante **HACS** y **Home Assistant Hassfest** en cada cambio.
