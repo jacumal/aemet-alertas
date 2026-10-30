@@ -10,6 +10,7 @@ import aiohttp
 import voluptuous as vol
 from aiohttp import ClientError
 from homeassistant import config_entries
+from homeassistant.core import callback
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.selector import (
     SelectSelector,
@@ -25,7 +26,6 @@ from .const import (
     CONF_SEVERITIES,
     DOMAIN,
     EVENT_NAMES,
-    SEVERITIES,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -320,7 +320,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         self._area_name: str | None = None
 
     @staticmethod
-    @config_entries.callback
+    @callback
     def async_get_options_flow(
         config_entry: config_entries.ConfigEntry,
     ) -> config_entries.OptionsFlow:
