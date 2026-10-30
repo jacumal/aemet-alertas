@@ -1,0 +1,11 @@
+alias: AEMET - Alerta naranja
+description: Enciende una luz cuando existe una alerta naranja.
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.aemet_alertas_litoral_norte_de_valencia_alerta_naranja
+    to: "on"
+actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.luz_entrada
+mode: single
