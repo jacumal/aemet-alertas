@@ -1,5 +1,6 @@
 {
   "name": "AEMET Alertas",
   "content_in_root": false,
-  "render_readme": true
+  "render_readme": true,
+  "country": "ES"
 }
