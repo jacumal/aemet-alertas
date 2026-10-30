@@ -1,54 +1,95 @@
-# AEMET Alertas
+<div align="center">
+  <img src="assets/aemet_alertas_logo.png" alt="AEMET Alertas" width="180">
 
-Integración personalizada para [Home Assistant](https://www.home-assistant.io/) que obtiene los avisos meteorológicos oficiales de AEMET directamente desde sus canales Atom y procesa los mensajes CAP 1.2 publicados para cada zona de aviso.
+  # AEMET Alertas
 
-**AEMET Alertas es un proyecto independiente y no está afiliado, patrocinado, respaldado ni mantenido por AEMET.**
+  **Avisos meteorológicos oficiales de AEMET, directamente en Home Assistant.**
 
-La integración es independiente de MeteoAlarm y Feedreader.
+  Integración personalizada, independiente de MeteoAlarm y Feedreader, con configuración visual, filtros por nivel y fenómeno, sensores detallados y eventos para automatizaciones.
 
-## Características
+  <br>
 
-- Catálogo de provincias y zonas obtenido directamente de AEMET.
-- Configuración mediante la interfaz de Home Assistant: **provincia → zona → niveles → fenómenos**.
-- Lectura del fichero de estado completo (`tar.gz`) publicado por AEMET.
-- Procesado de mensajes CAP 1.2.
-- Lectura del nivel oficial desde `AEMET-Meteoalerta nivel`.
-- Soporte para los cuatro niveles oficiales:
-  - Verde
-  - Amarillo
-  - Naranja
-  - Rojo
-- Identificación del fenómeno mediante la información oficial de AEMET y los parámetros CAP.
-- Filtros configurables por nivel y fenómeno.
-- Sensor de avisos activos con información detallada.
-- Sensores para el número de avisos por nivel.
-- Sensores de fenómenos activos por nivel.
-- Cuatro sensores binarios por zona, uno para cada nivel de alerta.
-- Entidad `Event` para detectar:
-  - Nuevos avisos
-  - Avisos actualizados
-  - Avisos finalizados
-- Identificación de entidades mediante la zona de AEMET para evitar conflictos cuando se configuran varias zonas.
-- Agrupación de las entidades por dispositivo en Home Assistant.
-- Branding propio e independiente.
+  [![Validate with HACS](https://github.com/jacumal/aemet-alertas/actions/workflows/hacs.yaml/badge.svg)](https://github.com/jacumal/aemet-alertas/actions/workflows/hacs.yaml)
+  [![Validate with hassfest](https://github.com/jacumal/aemet-alertas/actions/workflows/hassfest.yaml/badge.svg)](https://github.com/jacumal/aemet-alertas/actions/workflows/hassfest.yaml)
+  [![Latest release](https://img.shields.io/github/v/release/jacumal/aemet-alertas?style=flat-square&label=release)](https://github.com/jacumal/aemet-alertas/releases)
+  [![License](https://img.shields.io/github/license/jacumal/aemet-alertas?style=flat-square)](LICENSE)
+  [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-Custom%20Integration-41BDF5?style=flat-square&logo=home-assistant&logoColor=white)](https://www.home-assistant.io/)
 
-## Instalación mediante HACS
+</div>
 
-AEMET Alertas puede instalarse como repositorio personalizado de HACS mientras el proyecto no forme parte del catálogo oficial.
+---
+
+## ✨ Qué es
+
+**AEMET Alertas** lleva los avisos meteorológicos de la **Agencia Estatal de Meteorología (AEMET)** directamente a Home Assistant utilizando sus canales oficiales de datos.
+
+La integración descubre las provincias y zonas oficiales disponibles, permite seleccionar qué niveles y fenómenos monitorizar y expone la información como sensores, sensores binarios y una entidad `Event` preparada para automatizaciones.
+
+> **Importante:** AEMET Alertas es un proyecto independiente y **no está afiliado, patrocinado, respaldado ni mantenido por AEMET**.
+
+---
+
+## 🚀 Características
+
+| | Funcionalidad |
+|---|---|
+| 🌦️ | Datos meteorológicos directamente desde AEMET |
+| 🗺️ | Catálogo de provincias y zonas obtenido de AEMET |
+| ⚙️ | Configuración completa desde la interfaz de Home Assistant |
+| 🎚️ | Filtros por nivel: verde, amarillo, naranja y rojo |
+| 🌧️ | Filtros por fenómeno meteorológico |
+| 📊 | Número de avisos activos por nivel |
+| 🔔 | Sensores binarios para cada nivel de alerta |
+| ☁️ | Fenómenos activos agrupados por nivel |
+| ⚡ | Entidad `Event` para nuevos, actualizados y finalizados |
+| 🏠 | Agrupación de todas las entidades por zona/dispositivo |
+| 🎨 | Iconos y branding propios, independientes de AEMET |
+
+### Niveles soportados
+
+- 🟢 **Verde**
+- 🟡 **Amarillo**
+- 🟠 **Naranja**
+- 🔴 **Rojo**
+
+### Eventos soportados
+
+La entidad de eventos puede generar:
+
+- `new_alert` — nuevo aviso detectado
+- `updated_alert` — aviso existente actualizado
+- `ended_alert` — aviso finalizado
+
+---
+
+## 📦 Instalación
+
+### HACS
+
+AEMET Alertas puede instalarse mediante **HACS como repositorio personalizado** mientras el proyecto no forme parte del catálogo oficial.
 
 1. Abre **HACS → Integraciones**.
-2. Abre el menú de tres puntos y selecciona **Repositorios personalizados**.
-3. Añade:
+2. Abre el menú **⋮**.
+3. Selecciona **Repositorios personalizados**.
+4. Añade:
 
    `https://github.com/jacumal/aemet-alertas`
 
-4. Selecciona **Integration** como categoría.
-5. Instala **AEMET Alertas**.
-6. Reinicia Home Assistant.
+5. Selecciona **Integration**.
+6. Instala **AEMET Alertas**.
+7. Reinicia Home Assistant.
 
-## Instalación manual
+> 💡 **Consejo:** después de instalar o actualizar una integración personalizada, reinicia Home Assistant para que se cargue la nueva versión.
 
-Copia el directorio `custom_components/aemet_alertas` en:
+### Instalación manual
+
+Copia el directorio:
+
+```text
+custom_components/aemet_alertas
+```
+
+en:
 
 ```text
 /config/custom_components/aemet_alertas
@@ -56,49 +97,70 @@ Copia el directorio `custom_components/aemet_alertas` en:
 
 Después reinicia Home Assistant.
 
-## Configuración
+---
 
-Después del reinicio, ve a:
+## ⚙️ Configuración
+
+Después de reiniciar Home Assistant:
 
 **Configuración → Dispositivos y servicios → Añadir integración → AEMET Alertas**
 
-Selecciona la provincia y, a continuación, la zona oficial de avisos de AEMET.
+El asistente guía el proceso:
 
-La integración permite configurar los niveles y fenómenos que se quieren monitorizar.
+```text
+Provincia
+   ↓
+Zona oficial de AEMET
+   ↓
+Niveles a monitorizar
+   ↓
+Fenómenos a monitorizar
+```
 
-## Entidades
+La configuración puede modificarse posteriormente desde las opciones de la integración.
 
-Para cada zona configurada se crean entidades para:
+---
 
-- Total de avisos activos.
-- Número de alertas rojas, naranjas, amarillas y verdes.
-- Fenómenos activos por cada nivel.
-- Alerta roja.
-- Alerta naranja.
-- Alerta amarilla.
-- Alerta verde.
-- Eventos de alertas.
+## 📊 Entidades
 
-La entidad de eventos utiliza los tipos:
+Por cada zona configurada, AEMET Alertas crea un dispositivo con las entidades asociadas.
 
-- `new_alert`
-- `updated_alert`
-- `ended_alert`
+### Sensores
 
-## Fuentes de datos
+- **Total avisos activos**
+- **Nº alertas verdes**
+- **Nº alertas amarillas**
+- **Nº alertas naranjas**
+- **Nº alertas rojas**
+- **Fenómenos verdes**
+- **Fenómenos amarillos**
+- **Fenómenos naranjas**
+- **Fenómenos rojos**
 
-Los datos proceden directamente de los canales oficiales de AEMET para las zonas de aviso y de los mensajes CAP 1.2 publicados por AEMET.
+### Sensores binarios
 
-La reutilización de información de AEMET debe respetar las condiciones establecidas por la propia Agencia. Para más información, consulta el [aviso legal de AEMET](https://www.aemet.es/es/nota_legal).
+Un sensor por nivel:
 
-Cuando corresponda, debe indicarse AEMET como fuente de la información. Este proyecto no debe presentarse como un producto oficial de AEMET ni dar a entender que AEMET lo patrocina, respalda o mantiene.
+- **Alerta verde**
+- **Alerta amarilla**
+- **Alerta naranja**
+- **Alerta roja**
 
-## Ejemplo de automatización
+Esto permite crear automatizaciones muy sencillas, por ejemplo reaccionar inmediatamente cuando aparece una alerta roja.
 
-Ejemplo sencillo para reaccionar ante una alerta roja:
+### Eventos
+
+La entidad **Eventos de alertas** permite reaccionar a cambios en los avisos sin tener que consultar continuamente los sensores.
+
+---
+
+## 🤖 Ejemplos de automatización
+
+### 🔴 Avisar al móvil cuando aparece una alerta roja
 
 ```yaml
-alias: Aviso AEMET - Alerta roja
+alias: AEMET - Aviso de alerta roja
+description: Envía una notificación cuando se activa una alerta roja.
 triggers:
   - trigger: state
     entity_id: binary_sensor.aemet_alertas_litoral_norte_de_valencia_alerta_roja
@@ -111,17 +173,95 @@ actions:
 mode: single
 ```
 
-El nombre exacto de la entidad dependerá de la zona configurada.
+### 🟠 Encender una luz cuando aparece una alerta naranja
 
-## Estado del proyecto
+```yaml
+alias: AEMET - Alerta naranja
+description: Enciende una luz cuando existe una alerta naranja.
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.aemet_alertas_litoral_norte_de_valencia_alerta_naranja
+    to: "on"
+actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.luz_entrada
+mode: single
+```
 
-**Versión 1.0.0**
+> Los nombres exactos de las entidades dependen de la zona configurada en Home Assistant.
 
-Primera versión preparada para pruebas y distribución como integración personalizada de Home Assistant.
+---
 
-## Aviso legal y marca
+## 🧩 Ejemplo de uso con eventos
 
-AEMET Alertas utiliza información meteorológica publicada por la Agencia Estatal de Meteorología (AEMET).
+La entidad `Event` permite disparar automatizaciones cuando AEMET detecta cambios en los avisos.
+
+Conceptualmente, los eventos disponibles son:
+
+```text
+new_alert
+updated_alert
+ended_alert
+```
+
+Esto resulta especialmente útil para construir notificaciones inteligentes, registrar el histórico de avisos o activar escenas dependiendo del tipo de cambio detectado.
+
+---
+
+## 🛰️ Fuente de datos
+
+Los datos se obtienen directamente de los canales oficiales de AEMET para las zonas de aviso y de los mensajes **CAP 1.2** publicados por AEMET.
+
+La integración procesa, entre otros elementos:
+
+- Catálogo oficial de zonas.
+- Fichero de estado de avisos.
+- Mensajes CAP 1.2.
+- Nivel oficial `AEMET-Meteoalerta nivel`.
+- Información oficial del fenómeno y parámetros CAP.
+
+La integración **no depende de MeteoAlarm ni de Feedreader**.
+
+Para las condiciones de reutilización de los datos, consulta el [aviso legal de AEMET](https://www.aemet.es/es/nota_legal).
+
+---
+
+## 🖼️ Capturas
+
+La documentación visual de la integración se irá ampliando con capturas de:
+
+- Configuración de la integración.
+- Selección de provincia y zona.
+- Filtros de niveles y fenómenos.
+- Página del dispositivo y sus entidades.
+- Ejemplos de automatizaciones.
+
+> 📸 Las capturas de la versión 1.0.0 se añadirán al repositorio antes de la publicación definitiva para mantener la documentación sincronizada con la interfaz actual.
+
+---
+
+## 🛠️ Desarrollo y calidad
+
+El repositorio incorpora validación automática mediante **HACS** y **Home Assistant Hassfest** en cada cambio.
+
+Antes de publicar una versión se comprueba que la integración mantiene una estructura compatible con los validadores de Home Assistant y HACS.
+
+---
+
+## 📌 Estado del proyecto
+
+**Versión actual: 1.0.0**
+
+Primera versión pública preparada para distribución como integración personalizada de Home Assistant.
+
+El proyecto se encuentra en evolución y se aceptan sugerencias, mejoras y reportes de errores mediante GitHub Issues.
+
+---
+
+## ⚖️ Aviso legal y marca
+
+AEMET Alertas utiliza información meteorológica publicada por la **Agencia Estatal de Meteorología (AEMET)**.
 
 **Este proyecto no es oficial de AEMET y no está afiliado, patrocinado, respaldado ni mantenido por AEMET.**
 
@@ -131,12 +271,22 @@ Consulta las condiciones de reutilización de AEMET antes de redistribuir o util
 
 https://www.aemet.es/es/nota_legal
 
-## Licencia
+---
 
-Este proyecto se distribuye bajo licencia MIT. Consulta el archivo `LICENSE` incluido en el repositorio para más información.
+## 📄 Licencia
 
-## Créditos
+Este proyecto se distribuye bajo licencia **MIT**. Consulta [`LICENSE`](LICENSE) para más información.
 
-Desarrollado por **Javi / jacumal** para la comunidad de Home Assistant.
+## 👨‍💻 Créditos
+
+Desarrollado por **Javi / [@jacumal](https://github.com/jacumal)** para la comunidad de Home Assistant.
 
 AEMET y sus contenidos meteorológicos son propiedad de la **Agencia Estatal de Meteorología**. Este proyecto utiliza dichos datos como fuente y no reclama ninguna titularidad sobre ellos.
+
+---
+
+<div align="center">
+
+**AEMET Alertas · Home Assistant · Avisos meteorológicos**
+
+</div>
