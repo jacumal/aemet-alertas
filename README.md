@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/aemet_alertas_logo.png" alt="AEMET Alertas" width="190">
+  <img src="custom_components/aemet_alertas/brand/icon.png" alt="AEMET Alertas" width="190">
 
   # AEMET Alertas
 
@@ -148,20 +148,15 @@ La entidad **Eventos de alertas** permite reaccionar a cambios en los avisos sin
 
 ## 📦 Instalación
 
-### HACS
+### HACS / Marketplace
 
-AEMET Alertas puede instalarse mediante **HACS como repositorio personalizado** mientras el proyecto no forme parte del catálogo oficial.
+AEMET Alertas está preparado para su distribución mediante HACS/Marketplace. Mientras no forme parte del catálogo predeterminado, puede instalarse como repositorio personalizado.
 
-1. Abre **HACS → Integraciones**.
-2. Abre el menú **⋮**.
-3. Selecciona **Repositorios personalizados**.
-4. Añade:
-
-   `https://github.com/jacumal/aemet-alertas`
-
-5. Selecciona **Integration**.
-6. Instala **AEMET Alertas**.
-7. Reinicia Home Assistant.
+1. Abre **HACS / Marketplace → Integraciones**.
+2. Añade `https://github.com/jacumal/aemet-alertas` como repositorio personalizado.
+3. Selecciona **Integration**.
+4. Instala **AEMET Alertas**.
+5. Reinicia Home Assistant.
 
 > 💡 **Consejo:** después de instalar o actualizar una integración personalizada, reinicia Home Assistant para cargar la nueva versión.
 
@@ -282,7 +277,7 @@ Para las condiciones de reutilización de los datos, consulta el [aviso legal de
 
 El repositorio incorpora validación automática mediante **HACS** y **Home Assistant Hassfest** en cada cambio.
 
-Antes de publicar una versión se comprueba que la integración mantiene una estructura compatible con los validadores de Home Assistant y HACS.
+Ambas validaciones están pasando actualmente en el commit principal. Antes de publicar una versión se comprueba que la integración mantiene una estructura compatible con los validadores de Home Assistant y HACS.
 
 ---
 
@@ -290,7 +285,7 @@ Antes de publicar una versión se comprueba que la integración mantiene una est
 
 **Versión actual: 1.0.0**
 
-Primera versión pública de la integración personalizada.
+Primera versión pública estable de la integración personalizada.
 
 El proyecto está en evolución y se aceptan sugerencias, mejoras y reportes de errores mediante GitHub Issues.
 
