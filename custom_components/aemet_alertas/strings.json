@@ -25,10 +25,7 @@
       }
     },
     "abort": {
-      "cannot_connect": {
-        "title": "No se puede conectar con AEMET",
-        "description": "Home Assistant no ha podido obtener el catálogo de zonas de AEMET."
-      }
+      "cannot_connect": "No se puede conectar con AEMET. Home Assistant no ha podido obtener el catálogo de zonas de AEMET."
     }
   }
 }
