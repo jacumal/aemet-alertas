@@ -461,7 +461,7 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
         ]
 
         return self.async_show_form(
-            step_id="options",
+            step_id="init",
             data_schema=vol.Schema(
                 {
                     vol.Required(
