@@ -25,10 +25,7 @@
       }
     },
     "abort": {
-      "cannot_connect": {
-        "title": "Cannot connect to AEMET",
-        "description": "Home Assistant could not retrieve the AEMET area catalogue."
-      }
+      "cannot_connect": "Cannot connect to AEMET. Home Assistant could not retrieve the AEMET area catalogue."
     }
   }
 }
