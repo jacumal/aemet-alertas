@@ -11,6 +11,11 @@ import voluptuous as vol
 from aiohttp import ClientError
 from homeassistant import config_entries
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers.selector import (
+    SelectSelector,
+    SelectSelectorConfig,
+    SelectSelectorMode,
+)
 
 from .const import (
     CONF_AREA,
@@ -314,6 +319,14 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         self._areas: dict[str, str] = {}
         self._area_name: str | None = None
 
+    @staticmethod
+    @config_entries.callback
+    def async_get_options_flow(
+        config_entry: config_entries.ConfigEntry,
+    ) -> config_entries.OptionsFlow:
+        """Get the options flow."""
+        return OptionsFlowHandler()
+
     async def async_step_user(
         self,
         user_input: dict[str, Any] | None = None,
@@ -390,6 +403,77 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     vol.Required(CONF_AREA_NAME): vol.In(
                         list(self._areas)
                     )
+                }
+            ),
+        )
+
+
+class OptionsFlowHandler(config_entries.OptionsFlow):
+    """Handle AEMET Alertas option changes."""
+
+    async def async_step_init(
+        self,
+        user_input: dict[str, Any] | None = None,
+    ) -> config_entries.ConfigFlowResult:
+        """Configure alert severity and phenomenon filters."""
+        current_severities = list(
+            self.config_entry.options.get(
+                CONF_SEVERITIES,
+                ["green", "yellow", "orange", "red"],
+            )
+        )
+        current_events = list(
+            self.config_entry.options.get(
+                CONF_EVENTS,
+                ["all"],
+            )
+        )
+
+        if user_input is not None:
+            return self.async_create_entry(
+                title="",
+                data=user_input,
+            )
+
+        severity_options = [
+            {"value": "green", "label": "Verde"},
+            {"value": "yellow", "label": "Amarillo"},
+            {"value": "orange", "label": "Naranja"},
+            {"value": "red", "label": "Rojo"},
+        ]
+        event_options = [
+            {"value": "all", "label": "Todos"},
+            *(
+                {"value": event, "label": event}
+                for event in EVENT_NAMES
+                if event != "all"
+            ),
+        ]
+
+        return self.async_show_form(
+            step_id="options",
+            data_schema=vol.Schema(
+                {
+                    vol.Required(
+                        CONF_SEVERITIES,
+                        default=current_severities,
+                    ): SelectSelector(
+                        SelectSelectorConfig(
+                            options=severity_options,
+                            multiple=True,
+                            mode=SelectSelectorMode.DROPDOWN,
+                        )
+                    ),
+                    vol.Required(
+                        CONF_EVENTS,
+                        default=current_events,
+                    ): SelectSelector(
+                        SelectSelectorConfig(
+                            options=event_options,
+                            multiple=True,
+                            mode=SelectSelectorMode.DROPDOWN,
+                        )
+                    ),
                 }
             ),
         )
