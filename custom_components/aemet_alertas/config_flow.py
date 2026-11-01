@@ -109,6 +109,13 @@ PROVINCE_TO_COMMUNITY = {
     "Murcia": "Región de Murcia",
 }
 
+# AEMET's Canary Islands catalogue is organised by island/zone links,
+# without the 4-digit province link used by the mainland provinces.
+CANARY_PROVINCE_PREFIXES = {
+    "Las Palmas": ("6590", "6591", "6592"),
+    "Santa Cruz de Tenerife": ("6593", "6594", "6595", "6596"),
+}
+
 PROVINCES = sorted(PROVINCE_TO_COMMUNITY)
 
 
@@ -140,8 +147,6 @@ def _same_name(left: str, right: str) -> bool:
     if left_normalized == right_normalized:
         return True
 
-    # AEMET can display bilingual province names separated by "/",
-    # e.g. "València/Valencia".
     for part in left_normalized.split("/"):
         if part.strip() == right_normalized:
             return True
@@ -177,9 +182,15 @@ class _LinkParser(HTMLParser):
             self._text = []
 
 
-async def _get_catalog(
-    hass: Any, province: str
-) -> dict[str, str]:
+def _area_url(code: str) -> str:
+    """Build the official AEMET Atom URL for a warning area."""
+    return (
+        f"{AEMET_ROOT}/documentos_d/eltiempo/prediccion/"
+        f"avisos/rss/CAP_AFAZ{code}_ATOM.xml"
+    )
+
+
+async def _get_catalog(hass: Any, province: str) -> dict[str, str]:
     """Get official AEMET warning areas for a province."""
     community = PROVINCE_TO_COMMUNITY[province]
     url = f"{AEMET_ROOT}/es/rss_info/avisos/{COMMUNITIES[community]}"
@@ -201,13 +212,11 @@ async def _get_catalog(
             html = await response.text()
 
             _LOGGER.debug(
-                "AEMET Alertas: catalogue response status=%s "
-                "final_url=%s bytes=%s",
+                "AEMET Alertas: catalogue response status=%s final_url=%s bytes=%s",
                 status,
                 final_url,
                 len(html),
             )
-
             response.raise_for_status()
 
     except (ClientError, TimeoutError) as err:
@@ -221,76 +230,75 @@ async def _get_catalog(
     parser = _LinkParser()
     parser.feed(html)
 
-    # AEMET uses a 4-digit code for the province link and 6-digit
-    # codes for the warning areas. First locate the province code.
+    # Mainland AEMET pages expose a 4-digit province link (p=XXXX).
     province_code: str | None = None
-    province_links: list[tuple[str, str, str]] = []
-
     for text, href in parser.links:
         query = parse_qs(urlparse(href).query)
+        code = (query.get("p") or [""])[0]
 
-        # AEMET uses parameter p= for province links (e.g. p=7746),
-        # while warning-area links use l= (e.g. l=774602).
-        code = (query.get("p") or query.get("l") or [""])[0]
-
-        if not code.isdigit():
-            continue
-
-        if len(code) == 4 and (
-            _same_name(text, province)
-            or _same_name(text.replace("València", "Valencia"), province)
-        ):
+        if code.isdigit() and len(code) == 4 and _same_name(text, province):
             province_code = code
-            province_links.append((text, href, code))
-
-    _LOGGER.debug(
-        "AEMET Alertas: province=%s detected province_code=%s "
-        "province_links=%s",
-        province,
-        province_code,
-        province_links,
-    )
-
-    if province_code is None:
-        # Diagnostic fallback: log all 4-digit links from the page.
-        candidates = []
-
-        for text, href in parser.links:
-            query = parse_qs(urlparse(href).query)
-            code = (query.get("p") or query.get("l") or [""])[0]
-
-            if code.isdigit() and len(code) == 4:
-                candidates.append((text, code, href))
-
-        _LOGGER.error(
-            "AEMET Alertas: could not identify province %s. "
-            "4-digit links found: %s",
-            province,
-            candidates,
-        )
-
-        raise RuntimeError("province code not found")
+            break
 
     areas: dict[str, str] = {}
     area_details: list[tuple[str, str, str]] = []
 
-    for text, href in parser.links:
-        query = parse_qs(urlparse(href).query)
-        code = (query.get("l") or [""])[0]
+    if province_code is not None:
+        # Mainland / non-Canary catalogue: warning area codes start with
+        # the four-digit province code.
+        for text, href in parser.links:
+            query = parse_qs(urlparse(href).query)
+            code = (query.get("l") or [""])[0]
 
-        if (
-            code.isdigit()
-            and len(code) == 6
-            and code.startswith(province_code)
-            and text
-        ):
-            atom_url = (
-                f"{AEMET_ROOT}/documentos_d/eltiempo/prediccion/"
-                f"avisos/rss/CAP_AFAZ{code}_ATOM.xml"
-            )
+            if (
+                code.isdigit()
+                and len(code) == 6
+                and code.startswith(province_code)
+                and text
+            ):
+                atom_url = _area_url(code)
+                areas[text] = atom_url
+                area_details.append((text, code, atom_url))
+    elif community == "Canarias":
+        # Canarias is different: the RSS page has no province link for
+        # Santa Cruz de Tenerife / Las Palmas. It links directly to islands
+        # and warning areas, whose first four digits identify the province.
+        prefixes = CANARY_PROVINCE_PREFIXES[province]
 
-            areas[text] = atom_url
-            area_details.append((text, code, atom_url))
+        for text, href in parser.links:
+            query = parse_qs(urlparse(href).query)
+            code = (query.get("l") or [""])[0]
+
+            if (
+                code.isdigit()
+                and len(code) == 6
+                and code.startswith(prefixes)
+                and text
+            ):
+                atom_url = _area_url(code)
+                areas[text] = atom_url
+                area_details.append((text, code, atom_url))
+
+        _LOGGER.debug(
+            "AEMET Alertas: Canary catalogue province=%s prefixes=%s areas=%s",
+            province,
+            prefixes,
+            area_details,
+        )
+    else:
+        candidates = []
+        for text, href in parser.links:
+            query = parse_qs(urlparse(href).query)
+            code = (query.get("p") or query.get("l") or [""])[0]
+            if code.isdigit() and len(code) == 4:
+                candidates.append((text, code, href))
+
+        _LOGGER.error(
+            "AEMET Alertas: could not identify province %s. 4-digit links found: %s",
+            province,
+            candidates,
+        )
+        raise RuntimeError("province code not found")
 
     _LOGGER.debug(
         "AEMET Alertas: province=%s code=%s areas_found=%s details=%s",
@@ -302,8 +310,8 @@ async def _get_catalog(
 
     if not areas:
         raise RuntimeError(
-            f"no warning areas found for province {province} "
-            f"(code {province_code})"
+            f"no warning areas found for province {province}"
+            + (f" (code {province_code})" if province_code else "")
         )
 
     return dict(sorted(areas.items()))
@@ -332,20 +340,14 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         user_input: dict[str, Any] | None = None,
     ) -> config_entries.ConfigFlowResult:
         """Select province."""
-
         if user_input:
             self._province = user_input[CONF_PROVINCE]
 
             try:
-                self._areas = await _get_catalog(
-                    self.hass,
-                    self._province,
-                )
-
+                self._areas = await _get_catalog(self.hass, self._province)
             except Exception as err:  # noqa: BLE001
                 _LOGGER.exception(
-                    "AEMET Alertas: unexpected error getting catalogue "
-                    "for province %s: %s",
+                    "AEMET Alertas: unexpected error getting catalogue for province %s: %s",
                     self._province,
                     err,
                 )
@@ -356,9 +358,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema(
-                {
-                    vol.Required(CONF_PROVINCE): vol.In(PROVINCES)
-                }
+                {vol.Required(CONF_PROVINCE): vol.In(PROVINCES)}
             ),
         )
 
@@ -367,7 +367,6 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         user_input: dict[str, Any] | None = None,
     ) -> config_entries.ConfigFlowResult:
         """Select warning area."""
-
         if user_input:
             self._area_name = user_input[CONF_AREA_NAME]
             area_url = self._areas[self._area_name]
@@ -375,7 +374,6 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             await self.async_set_unique_id(
                 f"{self._province}_{self._area_name}"
             )
-
             self._abort_if_unique_id_configured()
 
             return self.async_create_entry(
@@ -399,11 +397,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         return self.async_show_form(
             step_id="area",
             data_schema=vol.Schema(
-                {
-                    vol.Required(CONF_AREA_NAME): vol.In(
-                        list(self._areas)
-                    )
-                },
+                {vol.Required(CONF_AREA_NAME): vol.In(list(self._areas))}
             ),
         )
 
@@ -423,26 +417,18 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
         user_input: dict[str, Any] | None = None,
     ) -> config_entries.ConfigFlowResult:
         """Configure alert severity and phenomenon filters."""
-
         current_severities = list(
             self.config_entry.options.get(
                 CONF_SEVERITIES,
                 ["green", "yellow", "orange", "red"],
             )
         )
-
         current_events = list(
-            self.config_entry.options.get(
-                CONF_EVENTS,
-                ["all"],
-            )
+            self.config_entry.options.get(CONF_EVENTS, ["all"])
         )
 
         if user_input is not None:
-            return self.async_create_entry(
-                title="",
-                data=user_input,
-            )
+            return self.async_create_entry(title="", data=user_input)
 
         severity_options = [
             {"value": "green", "label": "Verde"},
