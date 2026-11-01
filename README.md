@@ -91,53 +91,6 @@ La integración utiliza los mecanismos nativos de Home Assistant, incluyendo **C
 
 ---
 
-## 🎨 AEMET Alertas Card
-
-El proyecto incluye una tarjeta Lovelace específica para presentar los avisos de forma más visual y profesional, sin depender de **Browser Mod** ni de otras tarjetas externas.
-
-La misma tarjeta dispone de dos modos:
-
-### Compacta
-
-Pensada para el dashboard principal: muestra únicamente nivel, fenómeno, zona y número de avisos.
-
-```yaml
-type: custom:aemet-alertas-card
-entity: sensor.alertas_amarillas_litoral_norte_de_valencia
-mode: compact
-```
-
-### Detallada
-
-Pensada para una vista específica de meteorología: muestra todos los datos relevantes del aviso, incluyendo parámetro, probabilidad, severidad, certeza, urgencia, inicio, fin, descripción, recomendación y enlace a la fuente oficial.
-
-```yaml
-type: custom:aemet-alertas-card
-entity: sensor.alertas_amarillas_litoral_norte_de_valencia
-mode: detailed
-```
-
-La tarjeta adapta automáticamente su diseño al nivel del aviso:
-
-- 🟢 Sin avisos
-- 🟡 Aviso amarillo
-- 🟠 Aviso naranja
-- 🔴 Aviso rojo
-
-También soporta múltiples avisos activos y se adapta al modo claro u oscuro de Home Assistant.
-
-### Instalación de la tarjeta
-
-La tarjeta está incluida en el repositorio como `aemet-alertas-card.js`. Al tratarse de un elemento Lovelace, debe añadirse como **recurso JavaScript** del dashboard:
-
-```text
-/hacsfiles/aemet-alertas/aemet-alertas-card.js
-```
-
-> **Nota:** la integración y la tarjeta Lovelace tienen ciclos de distribución distintos en HACS. La integración puede instalarse como repositorio de tipo **Integration**; la tarjeta se publicará como elemento **Dashboard** independiente cuando su desarrollo quede estabilizado. Mientras tanto, puede cargarse manualmente como recurso Lovelace.
-
----
-
 ## ⚙️ Configuración paso a paso
 
 ### 1. Selección de provincia
@@ -356,7 +309,7 @@ Ambas validaciones están pasando actualmente en el commit principal. Antes de p
 
 **Versión actual: 1.0.1**
 
-Primera versión pública estable de la integración personalizada, con mejoras de documentación y soporte inicial para la tarjeta Lovelace de AEMET Alertas.
+Primera versión pública estable de la integración personalizada.
 
 El proyecto está en evolución y se aceptan sugerencias, mejoras y reportes de errores mediante GitHub Issues.
 
