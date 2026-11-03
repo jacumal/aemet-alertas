@@ -480,9 +480,9 @@ Ambas validaciones están pasando actualmente en el commit principal. Antes de p
 
 ## 📌 Estado del proyecto
 
-**Versión actual: 1.0.5**
+**Versión actual: 1.0.6**
 
-La versión 1.0.5 corrige el editor visual de la tarjeta Lovelace para conservar automáticamente el tipo `custom:aemet-alertas-card` al crear o modificar la tarjeta. También mantiene el resto de opciones de configuración al cambiar la entidad o el modo de visualización. La tarjeta sigue integrada en la propia integración, sin necesidad de añadir recursos JavaScript manualmente.
+La versión 1.0.6 corrige el registro del editor visual de la tarjeta Lovelace mediante `getConfigElement()` estático y fuerza la recarga de los módulos JavaScript con una URL versionada para evitar que el navegador reutilice código antiguo en caché. El editor permite seleccionar la localización y el nivel de aviso, resolviendo internamente la entidad binaria correspondiente. La tarjeta sigue integrada en la propia integración, sin necesidad de añadir recursos JavaScript manualmente.
 
 El proyecto está en evolución y se aceptan sugerencias, mejoras y reportes de errores mediante GitHub Issues.
 
