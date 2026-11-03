@@ -7,6 +7,7 @@
 class AemetAlertasCard extends HTMLElement {
   static getStubConfig() {
     return {
+      type: "custom:aemet-alertas-card",
       entity: "sensor.alertas_amarillas_litoral_norte_de_valencia",
       mode: "compact",
       show_when_clear: true,
