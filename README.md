@@ -480,9 +480,9 @@ Ambas validaciones están pasando actualmente en el commit principal. Antes de p
 
 ## 📌 Estado del proyecto
 
-**Versión actual: 1.0.3**
+**Versión actual: 1.0.4**
 
-La versión 1.0.3 incluye la tarjeta Lovelace integrada en la propia integración, además de las correcciones necesarias para el manejo de eventos y el procesamiento de datos fuera del event loop.
+La versión 1.0.4 incorpora las correcciones para el registro automático de la tarjeta Lovelace en el selector de tarjetas de Home Assistant y la carga de la variante responsive. La tarjeta sigue integrada en la propia integración, sin necesidad de añadir recursos JavaScript manualmente.
 
 El proyecto está en evolución y se aceptan sugerencias, mejoras y reportes de errores mediante GitHub Issues.
 
