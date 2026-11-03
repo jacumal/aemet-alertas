@@ -135,7 +135,7 @@ class AemetAlertasCardEditor extends HTMLElement {
       },
       {
         name: "show_when_clear",
-        label: "Mostrar cuando no haya avisos",
+        label: "Mostrar tarjeta cuando no haya avisos",
         selector: { boolean: {} },
       },
       {
