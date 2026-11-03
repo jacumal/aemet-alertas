@@ -5,6 +5,12 @@
  */
 
 class AemetAlertasCard extends HTMLElement {
+  // Home Assistant reads this static method when opening the card editor.
+  // Keeping it on the class avoids a race with customElements.whenDefined().
+  static getConfigElement() {
+    return document.createElement("aemet-alertas-card-editor");
+  }
+
   static getStubConfig() {
     return {
       type: "custom:aemet-alertas-card",
