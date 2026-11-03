@@ -1,5 +1,5 @@
-import "./aemet-alertas-card.js";
-import "./aemet-alertas-card-editor.js";
+import "./aemet-alertas-card.js?v=1.0.6";
+import "./aemet-alertas-card-editor.js?v=1.0.6";
 
 (() => {
   const RESPONSIVE_STYLE_ID = "aemet-alertas-card-responsive-layout-v3";
