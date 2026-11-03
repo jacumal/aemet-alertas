@@ -55,11 +55,10 @@ class AemetAlertasCardEditor extends HTMLElement {
       orange: "Naranja",
       red: "Roja",
     };
-    const levelOptions = entities
-      .filter((item) => item.area === selection.area)
-      .map((item) => item.level)
-      .filter((level, index, all) => all.indexOf(level) === index)
-      .sort((a, b) => ["green", "yellow", "orange", "red"].indexOf(a) - ["green", "yellow", "orange", "red"].indexOf(b))
+    // Always offer all four official levels, even when no alert is active.
+    // Each location has one binary sensor per level; an empty avisos array
+    // is a valid state and the card renders its "Sin avisos" presentation.
+    const levelOptions = ["green", "yellow", "orange", "red"]
       .map((level) => ({ value: level, label: levelLabels[level] }));
 
     if (!this._form) {
