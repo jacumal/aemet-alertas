@@ -1,5 +1,5 @@
 <div align="center">
-![AEMET Alertas](https://raw.githubusercontent.com/jacumal/aemet-alertas/main/custom_components/aemet_alertas/brand/icon.png)
+<img src="https://raw.githubusercontent.com/jacumal/aemet-alertas/main/custom_components/aemet_alertas/brand/icon.png" alt="AEMET Alertas" width="180">
 
   # AEMET Alertas
 
