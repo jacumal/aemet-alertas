@@ -1,3 +1,4 @@
+# One-shot helper for applying the HACS review feedback.
 from __future__ import annotations
 
 import json
