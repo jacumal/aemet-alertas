@@ -1,0 +1,28 @@
+name: Fix review-fix workflow
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.actor == 'jacumal'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fix re.sub call
+        run: |
+          sed -i 's/text, count = re.sub(/text, count = re.subn(/' .github/workflows/apply-hacs-review-fixes.yml
+      - name: Commit fix
+        run: |
+          rm .github/workflows/fix-one-shot-workflow.yml
+          git config user.name "jacumal"
+          git config user.email "82122168+jacumal@users.noreply.github.com"
+          git add .github/workflows/apply-hacs-review-fixes.yml
+          git add .github/workflows/fix-one-shot-workflow.yml
+          git commit -m "Fix review-fix workflow [skip ci]"
+          git push
