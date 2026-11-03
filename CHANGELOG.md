@@ -4,6 +4,14 @@ All notable changes to **AEMET Alertas** are documented here.
 
 The project follows a simple release-oriented changelog. Version numbers refer to the integration version exposed by Home Assistant.
 
+## [1.0.3] - 2026-11-03
+
+### Fixed
+
+- Fixed `new_alert` for the first alert after a clear state.
+- Moved TAR/GZIP decompression and CAP parsing to the executor.
+- Bundled the AEMET Alertas Lovelace card with automatic registration.
+
 ## [1.0.0] - 2026-10-30
 
 ### Added

@@ -272,6 +272,26 @@ def _is_current_alert(alert: Alert) -> bool:
     return expires > now
 
 
+def _read_archive(payload: bytes, archive_url: str) -> list[Alert]:
+    """Read all CAP XML files from an AEMET tar.gz snapshot."""
+    alerts: list[Alert] = []
+    with tarfile.open(fileobj=io.BytesIO(payload), mode="r:gz") as archive:
+        for member in archive.getmembers():
+            if not member.isfile() or not member.name.lower().endswith(".xml"):
+                continue
+            extracted = archive.extractfile(member)
+            if extracted is None:
+                continue
+            try:
+                alerts.extend(parse_cap(extracted.read(), archive_url))
+            except ET.ParseError:
+                _LOGGER.warning(
+                    "AEMET Alertas: invalid CAP XML inside archive: %s",
+                    member.name,
+                )
+    return alerts
+
+
 class AemetAlertasCoordinator(
     DataUpdateCoordinator[list[Alert]]
 ):
@@ -330,44 +350,16 @@ class AemetAlertasCoordinator(
         self,
         archive_url: str,
     ) -> list[Alert]:
-        """Read all CAP XML files from an AEMET tar.gz snapshot."""
+        """Download and parse an AEMET tar.gz snapshot off the event loop."""
         payload = await self._get(archive_url)
-
-        alerts: list[Alert] = []
-
-        with tarfile.open(
-            fileobj=io.BytesIO(payload),
-            mode="r:gz",
-        ) as archive:
-            for member in archive.getmembers():
-                if not member.isfile():
-                    continue
-
-                if not member.name.lower().endswith(".xml"):
-                    continue
-
-                extracted = archive.extractfile(member)
-
-                if extracted is None:
-                    continue
-
-                try:
-                    alerts.extend(
-                        parse_cap(
-                            extracted.read(),
-                            archive_url,
-                        )
-                    )
-                except ET.ParseError:
-                    _LOGGER.warning(
-                        "AEMET Alertas: invalid CAP XML "
-                        "inside archive: %s",
-                        member.name,
-                    )
-
-        return alerts
+        return await self.hass.async_add_executor_job(
+            _read_archive,
+            payload,
+            archive_url,
+        )
 
     async def _read_atom(
+
         self,
         atom: bytes,
     ) -> list[Alert]:
@@ -424,9 +416,11 @@ class AemetAlertasCoordinator(
                 continue
 
             try:
+                payload = await self._get(url)
                 alerts.extend(
-                    parse_cap(
-                        await self._get(url),
+                    await self.hass.async_add_executor_job(
+                        parse_cap,
+                        payload,
                         url,
                     )
                 )
