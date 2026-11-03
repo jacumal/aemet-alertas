@@ -1,4 +1,4 @@
-import "./aemet-alertas-card-core.js";
+import "./aemet-alertas-card-core.js?v=1.0.6";
 (() => {
   const GAP = 42;
   const SPEED = 34; // px/s
