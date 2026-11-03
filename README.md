@@ -141,7 +141,7 @@ La tarjeta incluye un **editor visual nativo de Home Assistant**. Al añadir una
 
 - 📍 **Entidad** AEMET.
 - 🎛️ **Modo**: Automático, Compacto o Detallado.
-- 👁️ **Mostrar cuando no hay avisos**.
+- 👁️ **Mostrar tarjeta cuando no haya avisos**.
 - 🔢 **Número máximo de avisos**.
 
 No es necesario crear manualmente un recurso JavaScript.
