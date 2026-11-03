@@ -569,3 +569,14 @@ class AemetAlertasCard extends HTMLElement {
 if (!customElements.get("aemet-alertas-card")) {
   customElements.define("aemet-alertas-card", AemetAlertasCard);
 }
+
+// Register the card in Home Assistant's visual card picker.
+window.customCards = window.customCards || [];
+if (!window.customCards.some((card) => card.type === "aemet-alertas-card")) {
+  window.customCards.push({
+    type: "aemet-alertas-card",
+    name: "AEMET Alertas Card",
+    description: "Tarjeta de avisos meteorológicos oficiales de AEMET.",
+    preview: true,
+  });
+}
