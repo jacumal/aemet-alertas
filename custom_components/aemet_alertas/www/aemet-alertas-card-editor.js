@@ -1,6 +1,9 @@
 class AemetAlertasCardEditor extends HTMLElement {
   setConfig(config) {
-    this._config = { ...config };
+    this._config = {
+      ...config,
+      type: config?.type || "custom:aemet-alertas-card",
+    };
     this._renderForm();
   }
 
