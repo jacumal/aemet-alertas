@@ -18,7 +18,13 @@ class AemetAlertasCardEditor extends HTMLElement {
     if (!this._form) {
       this._form = document.createElement("ha-form");
       this._form.addEventListener("value-changed", (event) => {
-        this._config = { ...event.detail.value };
+        // ha-form only returns the fields displayed in the visual editor.
+        // Preserve Lovelace's card type and any other existing card options.
+        this._config = {
+          ...this._config,
+          ...event.detail.value,
+          type: this._config?.type || "custom:aemet-alertas-card",
+        };
         this.dispatchEvent(new CustomEvent("config-changed", {
           detail: { config: this._config },
           bubbles: true,
