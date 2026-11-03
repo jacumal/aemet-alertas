@@ -14,7 +14,7 @@ from homeassistant.helpers.typing import ConfigType
 from .coordinator import AemetAlertasCoordinator
 
 CARD_DIR = Path(__file__).parent / "www"
-CARD_URL = "/aemet_alertas/aemet-alertas-card.js"
+CARD_URL = "/aemet_alertas/aemet-alertas-card-responsive.js"
 
 PLATFORMS: list[Platform] = [Platform.BINARY_SENSOR, Platform.SENSOR, Platform.EVENT]
 
