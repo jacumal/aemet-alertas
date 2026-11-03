@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="custom_components/aemet_alertas/brand/icon.png" alt="AEMET Alertas" width="190">
+![AEMET Alertas](https://raw.githubusercontent.com/jacumal/aemet-alertas/main/custom_components/aemet_alertas/brand/icon.png)
 
   # AEMET Alertas
 
@@ -32,11 +32,9 @@ La integración descubre las provincias y zonas oficiales disponibles, permite s
 
 Si el proyecto te ayuda a estar al día de los avisos meteorológicos en Home Assistant, puedes **apoyar su desarrollo** con un café. Es totalmente opcional y ayuda a mantener el proyecto, preparar nuevas funciones y mejorar la documentación.
 
-<p align="center">
   <a href="https://www.buymeacoffee.com/jacumal">
     <img src="https://img.shields.io/badge/☕️%20Buy%20Me%20a%20Coffee-Apoyar%20el%20proyecto-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=000000" alt="Buy Me a Coffee">
   </a>
-</p>
 
 ## 🚀 Características principales
 
@@ -76,19 +74,17 @@ La entidad de eventos puede generar:
 
 La integración utiliza los mecanismos nativos de Home Assistant, incluyendo **Config Flow**, **Device Registry**, **Entity Registry** y una entidad de eventos.
 
-<p align="center">
-  <img src="assets/screenshots/01-integracion.png" alt="AEMET Alertas en Home Assistant" width="900">
-</p>
+![AEMET Alertas en Home Assistant](https://raw.githubusercontent.com/jacumal/aemet-alertas/main/assets/screenshots/01-integracion.png)
 
-<p align="center"><em>Integración instalada y disponible desde Dispositivos y servicios.</em></p>
+
+*Integración instalada y disponible desde Dispositivos y servicios.*
 
 ### Dispositivo y entidades
 
-<p align="center">
-  <img src="assets/screenshots/05-dispositivo.png" alt="Dispositivo AEMET Alertas y sus entidades" width="900">
-</p>
+![Dispositivo AEMET Alertas y sus entidades](https://raw.githubusercontent.com/jacumal/aemet-alertas/main/assets/screenshots/05-dispositivo.png)
 
-<p align="center"><em>Cada zona configurada se representa como un dispositivo de Home Assistant.</em></p>
+
+*Cada zona configurada se representa como un dispositivo de Home Assistant.*
 
 ---
 
@@ -102,18 +98,13 @@ La tarjeta utiliza los datos de las entidades creadas por AEMET Alertas y se reg
 
 Ejemplos reales de la tarjeta mostrando diferentes niveles y tipos de avisos meteorológicos:
 
-<table>
-<tr>
-<td align="center" width="50%">
-<img src="https://raw.githubusercontent.com/jacumal/aemet-alertas-card/main/screenshots/aemet-alerta-naranja-tenerife.PNG" alt="AEMET Alertas Card - Aviso naranja en Tenerife" width="100%">
-<br><sub>🟠 Aviso naranja · Área metropolitana de Tenerife</sub>
-</td>
-<td align="center" width="50%">
-<img src="https://raw.githubusercontent.com/jacumal/aemet-alertas-card/main/screenshots/aemet-alerta-amarillo-ampurdan.PNG" alt="AEMET Alertas Card - Aviso amarillo en Ampurdán" width="100%">
-<br><sub>🟡 Aviso amarillo · Costa - Ampurdán</sub>
-</td>
-</tr>
-</table>
+![AEMET Alertas Card - Aviso naranja en Tenerife](https://raw.githubusercontent.com/jacumal/aemet-alertas-card/main/screenshots/aemet-alerta-naranja-tenerife.PNG)
+
+*🟠 Aviso naranja · Área metropolitana de Tenerife*
+
+![AEMET Alertas Card - Aviso amarillo en Ampurdán](https://raw.githubusercontent.com/jacumal/aemet-alertas-card/main/screenshots/aemet-alerta-amarillo-ampurdan.PNG)
+
+*🟡 Aviso amarillo · Costa - Ampurdán*
 
 > **Importante:** este proyecto es independiente y **no está afiliado, patrocinado, respaldado ni mantenido por AEMET**.
 
@@ -285,25 +276,19 @@ La tarjeta interpreta los niveles proporcionados por AEMET Alertas:
 
 ### 1. Selección de provincia
 
-<p align="center">
-  <img src="assets/screenshots/02-provincia.png" alt="Selección de provincia en AEMET Alertas" width="900">
-</p>
+![Selección de provincia en AEMET Alertas](https://raw.githubusercontent.com/jacumal/aemet-alertas/main/assets/screenshots/02-provincia.png)
 
 La provincia se selecciona desde el asistente de configuración. Las zonas disponibles se obtienen directamente de AEMET.
 
 ### 2. Selección de zona oficial
 
-<p align="center">
-  <img src="assets/screenshots/03-zona.png" alt="Selección de zona oficial de AEMET" width="900">
-</p>
+![Selección de zona oficial de AEMET](https://raw.githubusercontent.com/jacumal/aemet-alertas/main/assets/screenshots/03-zona.png)
 
 La integración utiliza las **zonas oficiales de avisos de AEMET**, evitando depender de nombres o divisiones geográficas mantenidas manualmente.
 
 ### 3. Dispositivo y asignación a un área
 
-<p align="center">
-  <img src="assets/screenshots/04-asignacion.png" alt="Asignación del dispositivo AEMET Alertas a un área" width="900">
-</p>
+![Asignación del dispositivo AEMET Alertas a un área](https://raw.githubusercontent.com/jacumal/aemet-alertas/main/assets/screenshots/04-asignacion.png)
 
 Cada zona configurada se representa como un dispositivo y puede asignarse a un área de la vivienda, igual que cualquier otra integración de Home Assistant.
 
@@ -338,9 +323,7 @@ Esto permite crear automatizaciones sencillas, por ejemplo reaccionar inmediatam
 
 ### Eventos
 
-<p align="center">
-  <img src="assets/screenshots/06-entidades.png" alt="Entidades y eventos de AEMET Alertas" width="900">
-</p>
+![Entidades y eventos de AEMET Alertas](https://raw.githubusercontent.com/jacumal/aemet-alertas/main/assets/screenshots/06-entidades.png)
 
 La entidad **Eventos de alertas** permite reaccionar a cambios en los avisos sin tener que consultar continuamente los sensores.
 
@@ -479,11 +462,9 @@ Para las condiciones de reutilización de los datos, consulta el [aviso legal de
 
 Si **AEMET Alertas** te resulta útil y quieres apoyar su mantenimiento y desarrollo, puedes invitarme a un café a través de **Buy Me a Coffee**:
 
-<p align="center">
   <a href="https://www.buymeacoffee.com/jacumal">
     <img src="https://img.shields.io/badge/☕️%20Buy%20Me%20a%20Coffee-Apoyar%20el%20proyecto-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=000000" alt="Buy Me a Coffee">
   </a>
-</p>
 
 El apoyo es totalmente opcional y ayuda a dedicar tiempo a nuevas funciones, mantenimiento, documentación y soporte de la integración.
 
