@@ -98,11 +98,11 @@ La tarjeta utiliza los datos de las entidades creadas por AEMET Alertas y se reg
 
 Ejemplos reales de la tarjeta mostrando diferentes niveles y tipos de avisos meteorológicos:
 
-![AEMET Alertas Card - Aviso naranja en Tenerife](https://raw.githubusercontent.com/jacumal/aemet-alertas-card/main/screenshots/aemet-alerta-naranja-tenerife.PNG)
+![AEMET Alertas Card - Aviso naranja en Tenerife](https://raw.githubusercontent.com/jacumal/aemet-alertas/main/assets/screenshots/Ejemplo_alerta_naranja.png)
 
 *🟠 Aviso naranja · Área metropolitana de Tenerife*
 
-![AEMET Alertas Card - Aviso amarillo en Ampurdán](https://raw.githubusercontent.com/jacumal/aemet-alertas-card/main/screenshots/aemet-alerta-amarillo-ampurdan.PNG)
+![AEMET Alertas Card - Aviso amarillo en Ampurdán](https://raw.githubusercontent.com/jacumal/aemet-alertas/main/assets/screenshots/Ejemplo_alerta_amarilla.png)
 
 *🟡 Aviso amarillo · Costa - Ampurdán*
 
