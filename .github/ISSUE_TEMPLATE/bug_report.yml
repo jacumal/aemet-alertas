@@ -7,13 +7,18 @@ body:
   - type: markdown
     attributes:
       value: |
-        Gracias por ayudar a mejorar AEMET Alertas. 🌦️
+        ¡Gracias por ayudar a mejorar AEMET Alertas! 🌦️
+
+        Cuanta más información nos facilites, más fácil será identificar y solucionar el problema.
+
+        No incluyas contraseñas, tokens, direcciones IP públicas ni datos personales en los registros o capturas.
 
   - type: input
     id: ha_version
     attributes:
       label: Home Assistant version
-      placeholder: "2026.10.x"
+      description: "Puedes encontrarla en Ajustes → Acerca de."
+      placeholder: "2026.11.0"
     validations:
       required: true
 
@@ -21,9 +26,49 @@ body:
     id: integration_version
     attributes:
       label: AEMET Alertas version
-      placeholder: "1.0.0"
+      description: "Puedes consultarla en HACS → Integraciones."
+      placeholder: "1.0.6"
     validations:
       required: true
+
+  - type: dropdown
+    id: installation_method
+    attributes:
+      label: Installation method
+      options:
+        - HACS
+        - Manual
+        - Other
+    validations:
+      required: false
+
+  - type: dropdown
+    id: issue_area
+    attributes:
+      label: Where does the problem occur?
+      options:
+        - Installation or download from HACS
+        - Integration configuration
+        - Sensors or entities
+        - Lovelace card does not appear in the card picker
+        - Lovelace card does not load or display correctly
+        - Lovelace visual editor
+        - Updating from a previous version
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: installation_type
+    attributes:
+      label: Is this a new installation or an update?
+      options:
+        - New installation
+        - Update from a previous version
+        - Existing installation
+        - Not sure
+    validations:
+      required: false
 
   - type: input
     id: zone
@@ -33,11 +78,33 @@ body:
     validations:
       required: false
 
+  - type: input
+    id: browser_device
+    attributes:
+      label: Browser and device
+      description: "Especially useful for Lovelace card or visual editor issues."
+      placeholder: "Safari on iPhone / Chrome on Windows / Home Assistant app"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: ha_restarted
+    attributes:
+      label: Did you restart Home Assistant after installation or update?
+      options:
+        - "Yes"
+        - "No"
+        - Not applicable
+        - Not sure
+    validations:
+      required: false
+
   - type: textarea
     id: description
     attributes:
       label: What happened?
       description: Describe the problem and what you expected to happen.
+      placeholder: "What did you try to do? What happened instead?"
     validations:
       required: true
 
@@ -47,17 +114,33 @@ body:
       label: Steps to reproduce
       description: List the steps needed to reproduce the problem.
       placeholder: |
-        1. Configure...
+        1. Install or update...
         2. Open...
-        3. Observe...
+        3. Select...
+        4. Observe the problem...
     validations:
       required: true
 
   - type: textarea
     id: logs
     attributes:
-      label: Relevant logs
-      description: Paste relevant Home Assistant logs. Remove tokens, credentials and personal information.
+      label: Home Assistant logs
+      description: |
+        Paste relevant errors from Settings → System → Logs.
+        Remove tokens, credentials and personal information.
+      render: text
+    validations:
+      required: false
+
+  - type: textarea
+    id: browser_console
+    attributes:
+      label: Browser console errors
+      description: |
+        If the problem concerns the Lovelace card or visual editor,
+        open the browser developer tools (F12 → Console) and paste
+        any relevant red errors.
+        On mobile, you can skip this field if you cannot access the console.
       render: text
     validations:
       required: false
@@ -65,6 +148,9 @@ body:
   - type: textarea
     id: additional
     attributes:
-      label: Additional information
+      label: Screenshots and additional information
+      description: |
+        Attach screenshots if they help explain the problem.
+        You can also include any other information that may be useful.
     validations:
       required: false
